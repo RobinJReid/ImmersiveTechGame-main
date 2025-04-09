@@ -13,12 +13,12 @@ public class GhostThrowable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject.tag);
         if (other.gameObject.tag == "Ghost" || other.gameObject.tag == "GhostNear")
         {
             rb = GetComponent<Rigidbody>();
             Vector3 direction = new Vector3(Random.Range(-10f, 10f), Random.Range(-10f, 10f), Random.Range(-10f, 10f));
             rb.AddForce(direction, ForceMode.Impulse);
-            Debug.Log(direction);
 
             // code by chatgpt REFERENCE LATER MY GOD
             float absX = Mathf.Abs(direction.x);
@@ -30,19 +30,20 @@ public class GhostThrowable : MonoBehaviour
 
             // Assign the original signed value
 
-            if (maxComponent == absX) furthestValue = direction.x;
-            else if (maxComponent == absY) furthestValue = direction.y;
-            else furthestValue = direction.z;
+            if (maxComponent == absX) furthestValue = Mathf.Abs(direction.x);
+            else if (maxComponent == absY) furthestValue = Mathf.Abs(direction.y);
+            else furthestValue = Mathf.Abs(direction.z);
 
-            Debug.Log("Furthest value: " + furthestValue);
 
 
         }
         if (other.gameObject.tag == "player")
         {
-            int damage;
-            damage = (int)furthestValue;
-            other.gameObject.GetComponent<Health>().ChangeHealth(damage);
+            if (rb.velocity.magnitude > 0.5f) 
+            {
+                int damage = (int)furthestValue;
+                other.gameObject.GetComponent<Health>().ChangeHealth(damage);
+            }
         }
     }
 

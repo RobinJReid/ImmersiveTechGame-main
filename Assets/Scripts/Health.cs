@@ -19,7 +19,7 @@ public class Health : MonoBehaviour
         if (health <= 0)
         {
             Debug.Log("Thing is dead");
-            if (this.gameObject.tag == "Player")
+            if (this.gameObject.tag == "player")
             {
                 SceneManager.LoadScene("MainScene");
             }
