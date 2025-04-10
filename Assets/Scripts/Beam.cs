@@ -10,6 +10,12 @@ public class Beam : MonoBehaviour
     [SerializeField] Material Mat1;
     [SerializeField] Material Mat2;
     private bool isMat1;
+    public AudioSource Beeper;
+
+    public void Start()
+    {
+        Beeper = GetComponent<AudioSource>();
+    }
     public void ChangeMaterial()
     {
         if (isMat1)
@@ -26,9 +32,10 @@ public class Beam : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        ChangeMaterial();
         if (other.gameObject.tag == "Ghost") 
         {
+            ChangeMaterial();
+            Beeper.Play(0);
             inGhost = true;
             other.gameObject.GetComponent<Health>().ChangeHealth(1);
         }
@@ -39,11 +46,16 @@ public class Beam : MonoBehaviour
         if (other.gameObject.tag == "Ghost")
         {
             inGhost = false;
+            ChangeMaterial();
         }
-        ChangeMaterial();
+        
     }
     private void OnTriggerStay(Collider other)
     {
-        if (inGhost) { other.gameObject.GetComponent<Health>().ChangeHealth(2); }
+        if (inGhost && other.gameObject.tag == "Ghost") 
+        { 
+            other.gameObject.GetComponent<Health>().ChangeHealth(2);
+            Beeper.Play(0); 
+        }
     }
 }
