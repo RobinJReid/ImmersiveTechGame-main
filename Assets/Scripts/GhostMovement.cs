@@ -12,9 +12,14 @@ public class GhostMovement : MonoBehaviour
     public Transform centrePoint; //centre of the area the agent wants to move around in
     //instead of centrePoint you can set it as the transform of the agent if you don't care about a specific area
 
+    private AudioSource HitAudio;
+    private int AudioNum;
+    [SerializeField] int frequency;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        HitAudio = GetComponent<AudioSource>();
     }
 
 
@@ -27,6 +32,12 @@ public class GhostMovement : MonoBehaviour
             {
                 Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f); //so you can see with gizmos
                 agent.SetDestination(point);
+                AudioNum = Random.Range(0, frequency);
+                Debug.Log(AudioNum);
+                if (AudioNum == 0)
+                {
+                    HitAudio.Play();
+                }
             }
         }
 
@@ -47,5 +58,6 @@ public class GhostMovement : MonoBehaviour
         result = Vector3.zero;
         return false;
     }
+
 
 }

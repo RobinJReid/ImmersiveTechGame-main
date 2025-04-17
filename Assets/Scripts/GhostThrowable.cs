@@ -9,12 +9,25 @@ public class GhostThrowable : MonoBehaviour
     private Vector3 direction;
     public Rigidbody rb;
     public float furthestValue;
+    public float neededMag;
+    public bool canThrow;
 
+    private AudioSource HitAudio;
 
-    private void OnTriggerEnter(Collider other)
+    public void Start()
     {
-        Debug.Log(other.gameObject.tag);
-        if (other.gameObject.tag == "Ghost" || other.gameObject.tag == "GhostNear")
+        HitAudio = GetComponent<AudioSource>();
+        canThrow = true;
+    }
+
+
+        private void OnTriggerEnter(Collider other)
+    {
+        
+
+      
+        
+        if (other.gameObject.tag == "Ghost" && canThrow)
         {
             rb = GetComponent<Rigidbody>();
             Vector3 direction = new Vector3(Random.Range(-10f, 10f), Random.Range(-10f, 10f), Random.Range(-10f, 10f));
@@ -33,6 +46,7 @@ public class GhostThrowable : MonoBehaviour
             if (maxComponent == absX) furthestValue = Mathf.Abs(direction.x);
             else if (maxComponent == absY) furthestValue = Mathf.Abs(direction.y);
             else furthestValue = Mathf.Abs(direction.z);
+            waitForTime();
 
 
 
@@ -43,9 +57,28 @@ public class GhostThrowable : MonoBehaviour
             {
                 int damage = (int)furthestValue;
                 other.gameObject.GetComponent<Health>().ChangeHealth(damage);
+
             }
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.relativeVelocity.magnitude > neededMag && collision.gameObject.tag != "Ghost" && collision.gameObject.tag != "GhostNear" && collision.gameObject.tag != "GhostFar" && collision.gameObject.tag != "player")
+        {
+            HitAudio.volume = collision.relativeVelocity.magnitude/20;
+            
+            HitAudio.Play();
+            
+        }
+    }
+
+    IEnumerator waitForTime()
+    {
+        canThrow = false;
+        yield return new WaitForSeconds(50f);
+        canThrow = true;
 
     }
+
+}
