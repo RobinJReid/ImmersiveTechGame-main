@@ -25,15 +25,15 @@ public class ghostDetector : MonoBehaviour
     {
         if (nearGhost)
         {
-            Value = Random.Range(00.0f, 4.0f);
+            Value = Random.Range(00.0f, 2.0f);
         }
         else if (canCaptureGhost)
         {
-            Value = Random.Range(2.0f, 6.0f);
+            Value = Random.Range(2.0f, 4.0f);
         }
         else
         {
-            Value = Random.Range(4.0f, 8.0f);
+            Value = Random.Range(4.0f, 6.0f);
         }
         Debug.Log(Value);
         GhostText.text = Value.ToString("F2");
@@ -60,5 +60,10 @@ public class ghostDetector : MonoBehaviour
         {
             canCaptureGhost = false;
         }
+    }
+    public void ClearGhostStatus()
+    {
+        nearGhost = false;
+        canCaptureGhost = false;
     }
 }

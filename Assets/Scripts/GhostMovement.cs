@@ -33,7 +33,6 @@ public class GhostMovement : MonoBehaviour
                 Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f); //so you can see with gizmos
                 agent.SetDestination(point);
                 AudioNum = Random.Range(0, frequency);
-                Debug.Log(AudioNum);
                 if (AudioNum == 0)
                 {
                     HitAudio.Play();
