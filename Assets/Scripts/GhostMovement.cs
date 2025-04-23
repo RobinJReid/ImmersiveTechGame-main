@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class GhostMovement : MonoBehaviour
 {
+    //JonDevTutorials (2022) Random AI Patrolling Tutorial Unity3D. 16 Jul 2022 . Available at: https://www.youtube.com/watch?v=dYs0WRzzoRc (27/3/25).
 
     public NavMeshAgent agent;
     public float range; //radius of sphere

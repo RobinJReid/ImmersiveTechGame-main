@@ -33,7 +33,7 @@ public class GhostThrowable : MonoBehaviour
             Vector3 direction = new Vector3(Random.Range(-10f, 10f), Random.Range(-10f, 10f), Random.Range(-10f, 10f));
             rb.AddForce(direction, ForceMode.Impulse);
 
-            // code by chatgpt REFERENCE LATER MY GOD
+            // Adapted from Open AI ChatGPT (2025) is there a way to turn the number in a vector3 furthest from 0 into a seperate float variable?. ChatGPT response to Robin Reid. Available at: https://chatgpt.com/share/680901dd-d664-8013-a8f9-8c140ec987b4 (27/3/25).
             float absX = Mathf.Abs(direction.x);
             float absY = Mathf.Abs(direction.y);
             float absZ = Mathf.Abs(direction.z);

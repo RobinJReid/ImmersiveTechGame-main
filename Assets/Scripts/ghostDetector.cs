@@ -10,16 +10,12 @@ public class ghostDetector : MonoBehaviour
     [SerializeField] public TMP_Text GhostText;
     private bool nearGhost;
     private bool canCaptureGhost;
-    // Start is called before the first frame update
 
     public void Start()
     {
         nearGhost = false;
         canCaptureGhost = false;
     }
-
-    // Update is called once per frame
-
 
     public void Temp()
     {
